@@ -1,13 +1,13 @@
 import discord
 from discord.ext import commands
 from discord.voice_client import *
+
+#I'm using a separate credentials file here, do what you want for that
 from thunderStoleMyBabyCredentials import Credentials
 
 TOKEN = Credentials.TOKEN
 GUILD_LEADER = Credentials.GUILD_LEADER
 ADMIN = Credentials.ADMIN
-
-#voice_channel = discord.utils.get(server.channels, id = '479103740893462540' )
 
 client = commands.Bot(command_prefix = ".")
 
@@ -38,10 +38,7 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-
-
-#not safe to keep active, anyone could delete all messages in a channel
-#potentially more safe now, checks if the user ID is my ID.
+#more safe now, checks if the user ID is my ID.
 @client.command(pass_context=True)
 async def clear(ctx, amount=5):
     if ctx.message.author.id == GUILD_LEADER:
@@ -71,6 +68,7 @@ async def vcmembers(ctx, voice_channel_id):
 
     return await client.say(embed = embed)
 
+#move everyone in the WoW 1 - Private voice channel to the WoW-Public voice channel
 @client.command(pass_context=True)
 async def privateToPublic(ctx):
 
