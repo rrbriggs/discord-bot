@@ -1,4 +1,5 @@
 import discord
+from random import randint
 from discord.ext import commands
 from discord.voice_client import *
 
@@ -26,15 +27,23 @@ async def on_message(message):
         return
 
     #says hello
-    if message.content.startswith('!hello'):
+    if message.content.lower().startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
 
+    if message.content.lower().startswith('!joke'):
+        #testing joke telling
+        role = ['tanking', 'healing', 'DPS']
+        msg = ("Thundr's {}!".format(role[randint(0, len(role)-1)]))
+        await client.send_message(message.channel, msg)
+
+    #doesn't do much right meow
     if message.content.startswith('.help') or message.content.startswith('.?'):
         msg = ('Current available commands are: \n' 
               + '".clear x" - Where x is how many messages to clear, and can only be ran by the owner of the server'
               + '".vcmembers x" - Where x is the voice channel ID, not name'
               + '".privateToPublic" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel')
+        await client.send_message(message.channel, msg)
 
     await client.process_commands(message)
 
