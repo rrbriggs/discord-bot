@@ -1,5 +1,5 @@
 import discord
-from random import randint
+import random
 from discord.ext import commands
 from discord.voice_client import *
 
@@ -34,7 +34,7 @@ async def on_message(message):
     if message.content.lower().startswith('!joke'):
         #testing joke telling
         role = ['tanking', 'healing', 'DPS']
-        msg = ("Thundr's {}!".format(role[randint(0, len(role)-1)]))
+        msg = "Thundr's {}!".format(random.choice(role))
         await client.send_message(message.channel, msg)
 
     #doesn't do much right meow
