@@ -39,10 +39,13 @@ async def on_message(message):
 
     #doesn't do much right meow
     if message.content.startswith('.help') or message.content.startswith('.?'):
-        msg = ('Current available commands are: \n' 
-              + '".clear x" - Where x is how many messages to clear, and can only be ran by the owner of the server'
-              + '".vcmembers x" - Where x is the voice channel ID, not name'
-              + '".privateToPublic" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel')
+        msg = ('``` \n'
+              + 'Current available commands are: \n' 
+              + '".clear x" - Where x is how many messages to clear, and can only be ran by the owner of the server \n'
+              + '".vcmembers x" - Where x is the voice channel ID, not name \n'
+              + '".privateToPublic" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel \n'
+              + '"!joke" - Tells very funny definitely not repetative or played out jokes \n'
+              + '```')
         await client.send_message(message.channel, msg)
 
     await client.process_commands(message)
