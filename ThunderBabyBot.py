@@ -1,5 +1,6 @@
 import discord
 import random
+import asyncio
 from discord.ext import commands
 from discord.voice_client import *
 
@@ -37,7 +38,6 @@ async def on_message(message):
         msg = "Thundr's {}!".format(random.choice(role))
         await client.send_message(message.channel, msg)
 
-    #doesn't do much right meow
     if message.content.startswith('.help') or message.content.startswith('.?'):
         msg = ('``` \n'
               + 'Current available commands are: \n' 
@@ -49,7 +49,8 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     await client.process_commands(message)
-
+#discord.ext.commands.errors.CommandInvokeError: 
+# - Command raised an exception: HTTPException: BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old.
 #more safe now, checks if the user ID is my ID.
 @client.command(pass_context=True)
 async def clear(ctx, amount=5):
@@ -93,11 +94,20 @@ async def privateToPublic(ctx):
 
     members = voice_channel.voice_members
 
-    if ADMIN in [role.id for role in ctx.message.author.roles]:
-        #stuff
+    member_count = len(members)
 
-        for member in members:
-            await client.move_member(member, public_voice_channel)
+    
+
+    if ADMIN in [role.id for role in ctx.message.author.roles]:
+        
+        #this check should handle members joining the channel during the member moveing process
+        while member_count > 0:
+
+            for member in members:
+                await client.move_member(member, public_voice_channel)
+    
+            member_count = len(voice_channel.voice_members)
+        
 
     else:
         await client.say('Insufficient permissions to use privateToPublic command')
