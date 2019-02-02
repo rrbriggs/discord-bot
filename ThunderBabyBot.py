@@ -35,7 +35,10 @@ async def on_message(message):
     if message.content.lower().startswith('!joke'):
         #testing joke telling
         role = ['tanking', 'healing', 'DPS']
-        msg = "Thundr's {}!".format(random.choice(role))
+        team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Squirrel']
+        person = "{}'s ".format(random.choice(team_member))
+        affliction = "{}!".format(random.choice(role))
+        msg = person + affliction
         await client.send_message(message.channel, msg)
 
     if message.content.startswith('.help') or message.content.startswith('.?'):
