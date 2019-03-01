@@ -59,6 +59,8 @@ async def on_message(message):
               + '".vcmembers x" - Where x is the voice channel ID, not name \n'
               + '".privateToPublic" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel \n'
               + '"!joke" - Tells very funny definitely not repetative or played out jokes \n'
+              + '"!source" - Links to bot github \n'
+              + '"!time" - Tells time in Texas Freedom Time \n'
               + '```')
         await client.send_message(message.channel, msg)
 
