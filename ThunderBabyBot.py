@@ -1,6 +1,7 @@
 import discord
 import random
 import asyncio
+import time
 from discord.ext import commands
 from discord.voice_client import *
 
@@ -32,14 +33,24 @@ async def on_message(message):
         msg = 'Hello {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
 
+    #joke telling
     if message.content.lower().startswith('!joke'):
-        #testing joke telling
         role = ['tanking', 'healing', 'DPS']
         team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Squirrel']
         person = "{}'s ".format(random.choice(team_member))
         affliction = "{}!".format(random.choice(role))
         msg = person + affliction
         await client.send_message(message.channel, msg)
+
+    #time
+    if message.content.lower().startswith('!time'):
+        localtime = time.asctime( time.localtime(time.time()) )
+        await client.send_message(message.channel, localtime)
+
+    #link to github
+    if message.content.lower().startswith('!source'):
+        source_link = "https://github.com/rrbriggs/discord-bot"
+        await client.send_message(message.channel, source_link)
 
     if message.content.startswith('.help') or message.content.startswith('.?'):
         msg = ('``` \n'
