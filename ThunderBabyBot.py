@@ -66,6 +66,7 @@ async def on_message(message):
 #discord.ext.commands.errors.CommandInvokeError: 
 # - Command raised an exception: HTTPException: BAD REQUEST (status code: 400): You can only bulk delete messages that are under 14 days old.
 #more safe now, checks if the user ID is my ID.
+#clear x amount of recent messages
 @client.command(pass_context=True)
 async def clear(ctx, amount=5):
     if ctx.message.author.id == GUILD_LEADER:
@@ -126,4 +127,24 @@ async def privateToPublic(ctx):
     else:
         await client.say('Insufficient permissions to use privateToPublic command')
 
+#time shenanigans
+#sends an alert to a channel if it is a raid day and 5PM
+async def raid_reminder():
+    await client.wait_until_ready()
+    tardis = datetime.datetime.now()
+
+    channel = discord.Object(id=479104049325801483)
+
+    while not client.is_closed:
+        if tardis.weekday() == 4:
+            if tardis.hour == 17:
+                await client.send_message(channel, "@everyone RAID DAY: FRIDAY - 8:30PM CST (Texas Time/Freedom Time) THIS IS 9:30 EST/peon time")
+
+        if tardis.weekday() == 5:
+            if tardis.hour == 17:
+                await client.send_message(channel, "@everyone RAID DAY: SATURDAY - 8:00PM CST (Texas Time/Freedom Time) THIS IS 9:00 EST/peon time")
+
+        await asyncio.sleep(1800)
+
+client.loop.create_task(raid_reminder())
 client.run(TOKEN)
