@@ -133,11 +133,11 @@ async def privateToPublic(ctx):
 #sends an alert to a channel if it is a raid day and 5PM
 async def raid_reminder():
     await client.wait_until_ready()
-    tardis = datetime.datetime.now()
 
     channel = discord.Object(id=479104049325801483)
 
     while not client.is_closed:
+        tardis = datetime.datetime.now()
         if tardis.weekday() == 4 and tardis.hour == 17:
             await client.send_message(channel, "@everyone RAID DAY: FRIDAY - 8:30PM CST (Texas Time/Freedom Time) THIS IS 9:30 EST/peon time")
 
