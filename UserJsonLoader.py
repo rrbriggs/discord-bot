@@ -1,5 +1,4 @@
 import json
-from User import User
 
 class UserJsonLoader:
     # def __init__(self, team_member, weight):
@@ -8,21 +7,51 @@ class UserJsonLoader:
 
     #when a new user is added, this will reset all users and weights
     def front_load_new_user_weights(self, team_members):
-    
+        
+        #read current users and weights, strip off offsets from average
+        existing_user_offset = []
+
+        current_settings = self.read_json()
+        current_num_users = len(current_settings)
+        old_avg_weight = 1/current_num_users
+
+
+        for i in current_settings:
+            
+            offset_num = i['weight'] - old_avg_weight
+
+            temp_dict = {
+                "name" :i['name'], 
+                "weight_offset": offset_num
+                }
+
+            existing_user_offset.append(temp_dict)
+
         #clear thunderBabyUsers.json
         self.clear_file()
 
         #basic psuedo-rng
         avg_weight = 1/len(team_members) 
 
-         #store weights / user 
+        #store weights / user 
         user_list = []
 
+        #testing generator expression approach
+        next(member for member in team_members if member['name'] == )
+
+        #matching names from offset and new user list, adding offset
+        #todo: check if this explodes on a new user w/ no offset
         for member in team_members:
-            json_dict = { 
-                "name" : member, 
-                "weight": avg_weight 
-                }
+            for user in existing_user_offset:
+                if user['name'] == member:
+                    
+                    print(f"{member}'s weight offset: {user['weight_offset']}\n"
+                        f"{member}'s weight after offset: {avg_weight + user['weight_offset']}")
+                    
+                    json_dict = { 
+                        "name" : member, 
+                        "weight": avg_weight + user['weight_offset']
+                    }   
 
             user_list.append(json_dict)
 
@@ -47,8 +76,8 @@ class UserJsonLoader:
             json_value = json.loads(json_string)
 
             #for testing
-            for i in json_value:
-                print(i['name'], i['weight'])    
+            # for i in json_value:
+            #     print(i['name'], i['weight'])    
 
             return json_value
 
