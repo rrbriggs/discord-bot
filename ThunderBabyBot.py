@@ -36,7 +36,8 @@ async def on_message(message):
     #joke telling
     if message.content.lower().startswith('!joke'):
         role = ['tanking', 'healing', 'DPS']
-        team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Squirrel']
+        team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
+        
         person = "{}'s ".format(random.choice(team_member))
         affliction = "{}!".format(random.choice(role))
         msg = person + affliction
