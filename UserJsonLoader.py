@@ -75,6 +75,11 @@ class UserJsonLoader:
         self.clear_file()
         self.create_json_file(current_settings)
 
+    def get_users_and_weights(self):
+        current_settings = self.read_json()
+
+        return current_settings
+
     #resets all user weights, will also set up json file when passed a list of user names
     def reset_user_weights_all(self, users = None):
         user_list = []
