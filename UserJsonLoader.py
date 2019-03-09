@@ -63,7 +63,17 @@ class UserJsonLoader:
 
         #returns list of dicts that consists of all users including newbie user
         return updated_user_list
-        
+
+    def remove_user(self, team_member):
+        current_settings = self.read_json()
+
+        for i in current_settings:
+            if i['name'] == team_member:
+                current_settings.remove(i)
+                print(f"{i['name']} has been removed")
+
+        self.clear_file()
+        self.create_json_file(current_settings)
 
     #resets all user weights, will also set up json file when passed a list of user names
     def reset_user_weights_all(self, users = None):
@@ -131,7 +141,7 @@ t = UserJsonLoader()
 #user list
 team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
 
-
+#t.remove_user("Billy")
 #t.reset_user_weights_all(team_member)
 #t.add_new_member("Billy")
 #user_list = t.add_new_member(team_member)
