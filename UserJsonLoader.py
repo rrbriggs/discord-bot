@@ -35,10 +35,11 @@ class UserJsonLoader:
         #add newbie to lists, and rename lists for readability
         new_team_member_offset_dict = {
             "name": team_member,
-            "weight": 0
+            "weight_offset": 0
         }
 
-        updated_user_offset_list = existing_user_offset.append(new_team_member_offset_dict)
+        existing_user_offset.append(new_team_member_offset_dict)
+        updated_user_offset_list = existing_user_offset
 
         #store weights / user 
         updated_user_list = []
@@ -54,8 +55,13 @@ class UserJsonLoader:
                 "weight": avg_weight + user['weight_offset']
             }   
 
-        updated_user_list.append(json_dict)
+            updated_user_list.append(json_dict)
 
+        self.create_json_file(updated_user_list)
+
+        print(f"{team_member} added!")
+
+        #returns list of dicts that consists of all users including newbie user
         return updated_user_list
 
     #resets all user weights, will also set up json file when passed a list of user names
@@ -71,7 +77,7 @@ class UserJsonLoader:
             for i in users:
                 temp_dict = {
                     "name" :i, 
-                    "weight_offset": avg_weight
+                    "weight": avg_weight
                     }
 
                 user_list.append(temp_dict)
@@ -83,7 +89,7 @@ class UserJsonLoader:
             for i in current_settings:
                 temp_dict = {
                     "name" :i['name'], 
-                    "weight_offset": avg_weight
+                    "weight": avg_weight
                     }
 
                 user_list.append(temp_dict)
@@ -124,7 +130,9 @@ t = UserJsonLoader()
 #user list
 team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
 
-t.reset_user_weights_all(team_member)
+
+#t.reset_user_weights_all(team_member)
+#t.add_new_member("Billy")
 #user_list = t.add_new_member(team_member)
 #t.create_json_file(user_list)
 #t.read_json()
