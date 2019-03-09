@@ -6,7 +6,7 @@ class UserJsonLoader:
     #     self.weight = weight   
 
     #when a new user is added, this will reset all users and weights
-    def front_load_new_user_weights(self, team_members):
+    def front_load_new_user_weights(self, team_member):
         
         #read current users and weights, strip off offsets from average
         existing_user_offset = []
@@ -31,17 +31,12 @@ class UserJsonLoader:
         self.clear_file()
 
         #basic psuedo-rng
-        avg_weight = 1/len(team_members) 
+        avg_weight = 1/len(team_member) 
 
         #store weights / user 
         user_list = []
 
-        #testing generator expression approach
-        next(member for member in team_members if member['name'] == )
-
-        #matching names from offset and new user list, adding offset
-        #todo: check if this explodes on a new user w/ no offset
-        for member in team_members:
+        for member in team_member:
             for user in existing_user_offset:
                 if user['name'] == member:
                     
@@ -56,6 +51,41 @@ class UserJsonLoader:
             user_list.append(json_dict)
 
         return user_list
+
+    #todo: this is in development
+    def reset_user_weights_all(self, users = None):
+        user_list = []
+        #current_settings = self.read_json()
+        #current_num_users = len(current_settings)
+        #avg_weight = 1/current_num_users
+
+        if users is not None:
+            avg_weight = 1/len(users)
+
+            for i in users:
+                temp_dict = {
+                    "name" :i, 
+                    "weight_offset": avg_weight
+                    }
+
+                user_list.append(temp_dict)
+        else:
+            current_settings = self.read_json()
+            current_num_users = len(current_settings)
+            avg_weight = 1/current_num_users
+
+            for i in current_settings:
+                temp_dict = {
+                    "name" :i['name'], 
+                    "weight_offset": avg_weight
+                    }
+
+                user_list.append(temp_dict)
+
+        #clear thunderBabyUsers.json
+        self.clear_file()
+        print(user_list)
+        self.create_json_file(user_list)
 
     def clear_file(self):
         open("thunderBabyUsersJson.json", "w").close
@@ -86,9 +116,9 @@ class UserJsonLoader:
 t = UserJsonLoader()
 
 #user list
-team_members = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
+team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
 
-
-user_list = t.front_load_new_user_weights(team_members)
-t.create_json_file(user_list)
-t.read_json()
+t.reset_user_weights_all(team_member)
+#user_list = t.front_load_new_user_weights(team_member)
+#t.create_json_file(user_list)
+#t.read_json()
