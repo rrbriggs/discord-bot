@@ -17,11 +17,10 @@ class UserJsonLoader:
 
         #create list of dicts of current user names and offsets (existing_user_offset)
         for i in current_settings:
-            
             offset_num = i['weight'] - old_avg_weight
 
             temp_dict = {
-                "name" :i['name'], 
+                "name": i['name'], 
                 "weight_offset": offset_num
                 }
 
@@ -30,27 +29,34 @@ class UserJsonLoader:
         #clear thunderBabyUsers.json
         self.clear_file()
 
-        #basic psuedo-rng
-        avg_weight = 1/len(team_member) 
+        #basic avg weight including the newbie
+        avg_weight = 1 / (len(existing_user_offset) + 1)
+
+        #add newbie to lists, and rename lists for readability
+        new_team_member_offset_dict = {
+            "name": team_member,
+            "weight": 0
+        }
+
+        updated_user_offset_list = existing_user_offset.append(new_team_member_offset_dict)
 
         #store weights / user 
-        user_list = []
+        updated_user_list = []
 
-        for member in team_member:
-            for user in existing_user_offset:
-                if user['name'] == member:
-                    
-                    print(f"{member}'s weight offset: {user['weight_offset']}\n"
-                        f"{member}'s weight after offset: {avg_weight + user['weight_offset']}")
-                    
-                    json_dict = { 
-                        "name" : member, 
-                        "weight": avg_weight + user['weight_offset']
-                    }   
+        #todo: team_member is no longer a list of dicts, its just one user name string
 
-            user_list.append(json_dict)
+        for user in updated_user_offset_list:
+            print(f"{user['name']}'s weight offset: {user['weight_offset']}\n"
+                f"{user['name']}'s weight after offset: {avg_weight + user['weight_offset']}")
+            
+            json_dict = { 
+                "name" : user['name'], 
+                "weight": avg_weight + user['weight_offset']
+            }   
 
-        return user_list
+        updated_user_list.append(json_dict)
+
+        return updated_user_list
 
     #resets all user weights, will also set up json file when passed a list of user names
     def reset_user_weights_all(self, users = None):
