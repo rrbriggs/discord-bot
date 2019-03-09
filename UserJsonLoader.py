@@ -6,7 +6,7 @@ class UserJsonLoader:
     #     self.weight = weight   
 
     #when a new user is added, this will reset all users and weights
-    def front_load_new_user_weights(self, team_member):
+    def add_new_member(self, team_member):
         
         #read current users and weights, strip off offsets from average
         existing_user_offset = []
@@ -15,7 +15,7 @@ class UserJsonLoader:
         current_num_users = len(current_settings)
         old_avg_weight = 1/current_num_users
 
-
+        #create list of dicts of current user names and offsets (existing_user_offset)
         for i in current_settings:
             
             offset_num = i['weight'] - old_avg_weight
@@ -52,7 +52,7 @@ class UserJsonLoader:
 
         return user_list
 
-    #todo: this is in development
+    #resets all user weights, will also set up json file when passed a list of user names
     def reset_user_weights_all(self, users = None):
         user_list = []
         #current_settings = self.read_json()
@@ -119,6 +119,6 @@ t = UserJsonLoader()
 team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
 
 t.reset_user_weights_all(team_member)
-#user_list = t.front_load_new_user_weights(team_member)
+#user_list = t.add_new_member(team_member)
 #t.create_json_file(user_list)
 #t.read_json()
