@@ -63,6 +63,7 @@ class UserJsonLoader:
 
         #returns list of dicts that consists of all users including newbie user
         return updated_user_list
+        
 
     #resets all user weights, will also set up json file when passed a list of user names
     def reset_user_weights_all(self, users = None):
