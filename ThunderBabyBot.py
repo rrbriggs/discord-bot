@@ -8,9 +8,15 @@ from discord.voice_client import *
 #I'm using a separate credentials file here, do what you want for that
 from thunderStoleMyBabyCredentials import Credentials
 
+import WeightedUserLogic
+import UserJsonLoader
+
 TOKEN = Credentials.TOKEN
 GUILD_LEADER = Credentials.GUILD_LEADER
 ADMIN = Credentials.ADMIN
+
+weighted_user_logic = WeightedUserLogic.UserWeightedMadness()
+user_json_loader = UserJsonLoader.UserJsonLoader()
 
 client = commands.Bot(command_prefix = ".")
 
@@ -36,9 +42,9 @@ async def on_message(message):
     #joke telling
     if message.content.lower().startswith('!joke'):
         role = ['tanking', 'healing', 'DPS']
-        team_member = ['Thundr', 'Adestra', 'Ava', 'Sistuh', 'Xend', 'Getinshwifty', 'Morph', 'Skrooge', 'Whirley', 'Frosty', 'Jeff', 'Devanaa', 'Shifty']
-        
-        person = "{}'s ".format(random.choice(team_member))
+        team_member = weighted_user_logic.GetUserForJoke()
+
+        person = "{}'s ".format(team_member)
         affliction = "{}!".format(random.choice(role))
         msg = person + affliction
         await client.send_message(message.channel, msg)
