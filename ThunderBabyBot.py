@@ -29,7 +29,7 @@ async def on_ready():
     print('------')
 
 @client.event
-async def on_message(message):
+async def on_message(ctx, message):
     # Hey bot, quit talking to yourself
     if message.author == client.user:
         return
@@ -62,7 +62,14 @@ async def on_message(message):
     if message.content.startswith('.help') or message.content.startswith('.?'):
         msg = ('``` \n'
               + 'Current available commands are: \n' 
+              + 'DISCORD OWNER ONLY \n'
               + '".clear x" - Where x is how many messages to clear, and can only be ran by the owner of the server \n'
+              + '".addMember x" - Add x member to the team / joke list! \n'
+              + '".removeMember x" - Remove x member to the team / joke list! \n'
+              + '".resetWeights" - Reset each members weight to the avg weight. \n'
+              + '\n'
+              + 'ALL USERS\n'
+              + '".getWeights" - Return all users and their weightings \n'
               + '".vcmembers x" - Where x is the voice channel ID, not name \n'
               + '".privateToPublic" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel \n'
               + '"!joke" - Tells very funny definitely not repetative or played out jokes \n'
@@ -87,6 +94,35 @@ async def clear(ctx, amount=5):
         await client.say('Messages deleted.')
     else: 
         await client.say('Insufficient permissions to prerform clear operation')
+
+#add a member to the json list of users and weights
+@client.command(pass_context=True)
+async def addMember(ctx, new_member):
+    if ctx.message.author.id == GUILD_LEADER:
+        user_json_loader.add_new_member(new_member)
+
+        await client.say(f'Added {new_member}!')
+
+#add a remove to the json list of users and weights
+@client.command(pass_context=True)
+async def removeMember(ctx, member):
+    if ctx.message.author.id == GUILD_LEADER:
+        user_json_loader.remove_user(member)
+
+        await client.say(f'Removed {member}!')
+
+#reset all weights from json list
+@client.command(pass_context=True)
+async def resetWeights(ctx):
+    if ctx.message.author.id == GUILD_LEADER:
+        user_json_loader.reset_user_weights_all()
+
+        await client.say(f'All weights reset!')
+
+#get all users and weights from json list 
+@client.command(pass_context=True)
+async def getWeights(ctx):
+    await client.say(user_json_loader.get_users_and_weights())
 
 #report users in a voice channel
 @client.command(pass_context=True)
