@@ -29,7 +29,7 @@ async def on_ready():
     print('------')
 
 @client.event
-async def on_message(ctx, message):
+async def on_message(message):
     # Hey bot, quit talking to yourself
     if message.author == client.user:
         return
@@ -101,7 +101,7 @@ async def addMember(ctx, new_member):
     if ctx.message.author.id == GUILD_LEADER:
         user_json_loader.add_new_member(new_member)
 
-        await client.say(f'Added {new_member}!')
+        await client.say("Added {}!".format(new_member))
 
 #add a remove to the json list of users and weights
 @client.command(pass_context=True)
@@ -109,7 +109,7 @@ async def removeMember(ctx, member):
     if ctx.message.author.id == GUILD_LEADER:
         user_json_loader.remove_user(member)
 
-        await client.say(f'Removed {member}!')
+        await client.say("Removed {}!".format(member))
 
 #reset all weights from json list
 @client.command(pass_context=True)
@@ -117,7 +117,7 @@ async def resetWeights(ctx):
     if ctx.message.author.id == GUILD_LEADER:
         user_json_loader.reset_user_weights_all()
 
-        await client.say(f'All weights reset!')
+        await client.say("All weights reset!")
 
 #get all users and weights from json list 
 @client.command(pass_context=True)

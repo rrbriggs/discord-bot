@@ -46,8 +46,7 @@ class UserJsonLoader:
 
         #set weight + offsets
         for user in updated_user_offset_list:
-            print(f"{user['name']}'s weight offset: {user['weight_offset']}\n"
-                f"{user['name']}'s weight after offset: {avg_weight + user['weight_offset']}")
+            print("{}'s weight offset: {}\n {}'s weight after offset: {}".format(user['name'], user['weight_offset'], user['name'], avg_weight + user['weight_offset']))
             
             json_dict = { 
                 "name" : user['name'], 
@@ -58,7 +57,7 @@ class UserJsonLoader:
 
         self.create_json_file(updated_user_list)
 
-        print(f"{team_member} added!")
+        print("{} added!".format(team_member))
 
         #returns list of dicts that consists of all users including newbie user
         return updated_user_list
@@ -88,7 +87,7 @@ class UserJsonLoader:
         for i in current_settings:
             if i['name'] == team_member:
                 current_settings.remove(i)
-                print(f"{i['name']} has been removed")
+                print("{} has been removed".format(i['name']))
 
         self.clear_file()
         self.create_json_file(current_settings)
