@@ -39,6 +39,12 @@ async def on_message(message):
         msg = 'Hello {0.author.mention}'.format(message)
         await client.send_message(message.channel, msg)
 
+    #Letterkenny throwback
+    if "to be fair" in message.content.lower():
+        msg = 'To be faaaaaaaaaair!'
+        await client.send_message(message.channel, msg)
+        await client.send_message(message.channel, msg)
+
     #joke telling
     if message.content.lower().startswith('!joke'):
         role = ['tanking', 'healing', 'DPS']
