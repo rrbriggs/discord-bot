@@ -1,9 +1,11 @@
 # discord-bot
-Mucking around with creating a discord bot. The main functionality I wanted was to move everyone from a private channel to a public channel.
+Mucking around with creating a discord bot. The main functionality I wanted was to move everyone from a private channel to a public channel for pub raids.
 
 # Poking fun at users
 
 Bot has a joke functionality !joke
+
+My WoW crew loves when bots make fun of us. 
 
 It will pick a person and make a joke about them.
 My jokes are just for MMOs at the moment and just make fun of a persons DPS/Tanking/Healing randomly.
