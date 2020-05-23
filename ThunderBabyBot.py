@@ -15,6 +15,7 @@ TOKEN = Credentials.TOKEN
 GUILD_LEADER = Credentials.GUILD_LEADER
 ADMIN = Credentials.ADMIN
 
+alert_on = False
 weighted_user_logic = WeightedUserLogic.UserWeightedMadness()
 user_json_loader = UserJsonLoader.UserJsonLoader()
 
@@ -115,6 +116,18 @@ async def addMember(ctx, new_member):
         await client.say("Added {}!".format(new_member))
 
 
+@client.command(pass_context=True)
+async def toggle_raid_alert(ctx, raid_alert):
+    if ctx.message.author.id == GUILD_LEADER:
+
+        if raid_alert == "on":
+            alert_on = True
+        elif raid_alert == "off":
+            alert_on = False
+
+        await client.say("Raid Alert: {}!".format())
+
+
 # add a remove to the json list of users and weights
 @client.command(pass_context=True)
 async def removeMember(ctx, member):
@@ -202,7 +215,7 @@ async def raid_reminder():
 
     while not client.is_closed:
         tardis = datetime.datetime.now()
-        if tardis.weekday() == 4 and tardis.hour == 17:
+        if tardis.weekday() == 4 and tardis.hour == 17 and alert_on:
             await client.send_message(channel,
                                       "@everyone RAID DAY: FRIDAY - 8:30PM CST (Texas Time/Freedom Time) THIS IS 9:30 EST/peon time")
             await client.send_message(pub_channel,
