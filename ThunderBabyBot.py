@@ -119,6 +119,7 @@ async def addMember(ctx, new_member):
 
 @client.command(pass_context=True)
 async def toggle_raid_alert(ctx, raid_alert):
+    global alert_on
     if ctx.message.author.id == GUILD_LEADER:
 
         if raid_alert == "on":
