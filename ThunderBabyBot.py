@@ -15,11 +15,12 @@ TOKEN = Credentials.TOKEN
 GUILD_LEADER = Credentials.GUILD_LEADER
 ADMIN = Credentials.ADMIN
 
-alert_on = False
 weighted_user_logic = WeightedUserLogic.UserWeightedMadness()
 user_json_loader = UserJsonLoader.UserJsonLoader()
 
 client = commands.Bot(command_prefix=".")
+
+alert_on = False
 
 
 # reporting bot name and ID in server
@@ -124,6 +125,8 @@ async def toggle_raid_alert(ctx, raid_alert):
             alert_on = True
         elif raid_alert == "off":
             alert_on = False
+        elif raid_alert == "status":
+            await client.say("Raid Alert is {}.").format(alert_on)
 
         await client.say("Raid Alert: {}!".format(raid_alert))
 
