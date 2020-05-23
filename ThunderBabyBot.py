@@ -127,7 +127,12 @@ async def toggle_raid_alert(ctx, raid_alert):
         elif raid_alert == "off":
             alert_on = False
         elif raid_alert == "status":
-            await client.say("Raid Alert is {}.").format(alert_on)
+            if alert_on:
+                await client.say("Raid Alert is ON.")
+                return
+            else:
+                await client.say("Raid Alert is OFF.")
+                return
 
         await client.say("Raid Alert: {}!".format(raid_alert))
 
