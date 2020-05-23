@@ -81,7 +81,7 @@ async def on_message(message):
                + '".getWeights" - Return all users and their weightings \n'
                + '".vcmembers x" - Where x is the voice channel ID, not name \n'
                + '".moveRaid" - Moves everyone from the WoW 1 - Private channel to the WoW-Public channel, if additional WoWGeneral argument given, it will move from that channel instead \n'
-               + '"!joke" - Tells very funny definitely not repetative or played out jokes \n'
+               + '"!joke" - Tells very funny definitely not repetitive or played out jokes \n'
                + '"!source" - Links to bot github \n'
                + '"!time" - Tells time in Texas Freedom Time \n'
                + '```')
