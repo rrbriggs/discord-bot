@@ -125,7 +125,7 @@ async def toggle_raid_alert(ctx, raid_alert):
         elif raid_alert == "off":
             alert_on = False
 
-        await client.say("Raid Alert: {}!".format())
+        await client.say("Raid Alert: {}!".format(raid_alert))
 
 
 # add a remove to the json list of users and weights
