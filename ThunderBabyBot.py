@@ -224,7 +224,7 @@ async def raid_reminder():
             await client.send_message(pub_channel,
                                       "@everyone RAID DAY: FRIDAY - 8:30PM CST (Texas Time/Freedom Time) THIS IS 9:30 EST/peon time")
 
-        if tardis.weekday() == 5 and tardis.hour == 17:
+        if tardis.weekday() == 5 and tardis.hour == 17 and alert_on:
             await client.send_message(channel,
                                       "@everyone RAID DAY: SATURDAY - 8:00PM CST (Texas Time/Freedom Time) THIS IS 9:00 EST/peon time")
             await client.send_message(pub_channel,
